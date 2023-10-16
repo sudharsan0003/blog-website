@@ -2,10 +2,13 @@
 
 import { Link } from 'react-router-dom';
 import { short } from '../utility';
-import { FaFontAwesome } from 'react-icons/fa';
-import '../../src/index.css';
 
-const BlogSection = ({ blogs, user }) => {
+import '../../src/index.css';
+import { MdRestoreFromTrash } from 'react-icons/md';
+import { FiEdit } from 'react-icons/fi';
+
+const BlogSection = ({ blogs, user, handleDelete }) => {
+  const userId = user?.uid;
   return (
     <div>
       <div className='blog-heading text-start py-2 mb-4'>
@@ -31,19 +34,26 @@ const BlogSection = ({ blogs, user }) => {
               <div className='short-description'>
                 {short(item.description, 120)}
               </div>
-              <button className='btn btn-read'>Read More</button>
-              <div>
-                <FaFontAwesome
-                  name='trash'
-                  style={{ margin: '15px', cursor: 'pointer' }}
-                  size='2px'
-                />
-                <FaFontAwesome
-                  name='trash'
-                  style={{ margin: '15px', cursor: 'pointer' }}
-                  size='2px'
-                />
-              </div>
+              <Link to={`/detail/${item.id}`}>
+                <button className='btn btn-read'>Read More</button>
+              </Link>
+              {user?.uid && item.userId === user.uid && (
+                <div style={{ float: 'right' }}>
+                  <MdRestoreFromTrash
+                    name='trash'
+                    style={{ margin: '15px', cursor: 'pointer' }}
+                    size='22px'
+                    onClick={() => handleDelete(item.id)}
+                  />
+                  <Link to={`/update/${item.id}`}>
+                    <FiEdit
+                      name='edit'
+                      style={{ margin: '15px', cursor: 'pointer' }}
+                      size='20px'
+                    />
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
         ))}

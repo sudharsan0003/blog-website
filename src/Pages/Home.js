@@ -14,8 +14,10 @@ import {
 } from 'firebase/firestore';
 import { db } from '../firebase';
 import BlogSection from '../components/BlogSection';
+import Spinner from '../components/spinner';
+import { toast } from 'react-toastify';
 
-const Home = () => {
+const Home = ({ setActive, user }) => {
   const [loading, setLoading] = useState(true);
   const [blogs, setBlogs] = useState([]);
 
@@ -28,6 +30,8 @@ const Home = () => {
           list.push({ id: doc.id, ...doc.data() });
         });
         setBlogs(list);
+        setLoading(false);
+        setActive('home');
       },
       (error) => {
         console.log(error);
@@ -38,7 +42,24 @@ const Home = () => {
       unsub();
     };
   }, []);
-  console.log('blogs : ', blogs);
+
+  if (loading) {
+    return <Spinner />;
+  }
+
+  const handleDelete = async (id) => {
+    if (window.confirm('Are you sure wanted to delete that blog ?')) {
+      try {
+        setLoading(true);
+        await deleteDoc(doc(db, 'blogs', id));
+        toast.success('Blog deleted successfully');
+        setLoading(false);
+        toast.success('Blog deleted successfully');
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
 
   return (
     <div className='container-fluid pb-4 pt-4 padding'>
@@ -48,7 +69,7 @@ const Home = () => {
         </div>
         <div className='col-md-8'>
           Daily Blogs
-          <BlogSection blogs={blogs} />
+          <BlogSection blogs={blogs} user={user} handleDelete={handleDelete} />
         </div>
         <div className='col-md-3'>
           <h2>Tags</h2>
