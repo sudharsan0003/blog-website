@@ -4,18 +4,16 @@ import { Link } from 'react-router-dom';
 const Tags = ({ tags }) => {
   return (
     <div>
-      div.blog-heading text-start py-2 <mb-4>Tags</mb-4>
+      <div className='blog-heading text-start py-2 mb-4'>Tags</div>
       <div className='tags'>
-        {tags?.map((tag, index) => (
-          <p className='tag' key={index}>
-            {/* <Link
-              to={`/tag/${tag}`}
-              style={{ textDecoration: 'none', color: 'black' }}
-            >
-              {tag}
-            </Link> */}
-          </p>
-        ))}
+        <Link to={'/'}>
+          <span>Technology</span>
+          <span>IT</span>
+          <span>Devops</span>
+          <span>Trend</span>
+          <span>Cricket</span>
+          <span>Academy</span>
+        </Link>
       </div>
     </div>
   );

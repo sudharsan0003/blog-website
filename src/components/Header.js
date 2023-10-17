@@ -14,8 +14,8 @@ const Header = ({ active, setActive, handleLogout, user }) => {
   // };
 
   return (
-    <div className='w-full bg-blue-700  text-whiteText flex flex-row justify-between items-center gap-5 sticky top-0 z-50'>
-      <div className=' px-4 py-3 flex flex-row items-center gap-5 '>
+    <div className='w-full h-14 bg-blue-700  text-whiteText flex flex-row justify-between items-center gap-5 sticky top-0 z-50'>
+      <div className=' px-4  flex flex-row items-center gap-5 '>
         <Link to='/'>
           <div className='headerHover flex flex-col text-white'>
             <FaBlog />
@@ -41,22 +41,22 @@ const Header = ({ active, setActive, handleLogout, user }) => {
           </div>
         </Link>
       </div>
-      <div>
+      <div className=' px-4  flex flex-row items-center justify-center gap-5 '>
         {userId ? (
           <>
             <div>
               <img
-                className='w-[50px] h-[50px] rounded mt-[12px] flex justify-center items-center '
+                className='w-[30px] h-[30px] rounded  flex justify-center items-center '
                 src='https://cdn-icons-png.flaticon.com/512/149/149071.png'
                 alt='logo'
               />
             </div>
-            <p className='mt-[18px] ml-[5px] text-2xl text-white'>
+            <p className='mt-[10px] -ml-[40px] text-m text-white flex justify-center items-center'>
               {user?.displayName}
             </p>
             <Link to='./login'>
               <p
-                ClassName='text- text-4xl text-decor cursor-pointer text-'
+                className='flex justify-center text-white headerHover no-underline'
                 onClick={handleLogout}
               >
                 Logout

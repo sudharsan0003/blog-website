@@ -49,7 +49,11 @@ const App = () => {
         <Route
           path='/create'
           element={
-            user && user.uid ? <EditPage user={user} /> : <Navigate to='/' />
+            user && user.uid ? (
+              <EditPage user={user} />
+            ) : (
+              <Navigate to='/login' />
+            )
           }
         />
         <Route

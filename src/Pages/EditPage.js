@@ -96,13 +96,17 @@ const EditPage = ({ user, setActive }) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  const handleTrending = (e) => {
+    setForm({ ...form, trending: e.target.value });
+  };
+
   const onCategoryChange = (e) => {
     setForm({ ...form, category: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (category && tags && title && description && trending) {
+    if (category && title && description && trending) {
       if (!id) {
         try {
           await addDoc(collection(db, 'blogs'), {
@@ -117,7 +121,7 @@ const EditPage = ({ user, setActive }) => {
         }
       } else {
         try {
-          await updateDoc(doc(db, 'blogs'), {
+          await updateDoc(doc(db, 'blogs', id), {
             ...form,
             timestamp: serverTimestamp(),
             author: user.displayName,
@@ -177,6 +181,33 @@ const EditPage = ({ user, setActive }) => {
                   name='description'
                   onChange={handleChange}
                 />
+              </div>
+              <div className='col-12 py-3'>
+                <p className='trending'>Is it trending blog ?</p>
+                <div className='form-check-inline mx-2'>
+                  <input
+                    type='radio'
+                    className='form-check-input'
+                    value='yes'
+                    name='radioOption'
+                    checked={trending === 'yes'}
+                    onChange={handleTrending}
+                  />
+                  <label htmlFor='radioOption' className='form-check-label'>
+                    Yes&nbsp;
+                  </label>
+                  <input
+                    type='radio'
+                    className='form-check-input'
+                    value='no'
+                    name='radioOption'
+                    checked={trending === 'no'}
+                    onChange={handleTrending}
+                  />
+                  <label htmlFor='radioOption' className='form-check-label'>
+                    No
+                  </label>
+                </div>
               </div>
               <div className='mb-3'>
                 <input

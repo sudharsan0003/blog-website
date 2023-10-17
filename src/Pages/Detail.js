@@ -39,10 +39,10 @@ const Detail = (setActive) => {
               </span>
               <p className='text-start'>{blog?.description}</p>
             </div>
-            <div className='col-md'>
+            {/* <div className='col-md'>
               <h2>Tag</h2>
               <h2>Most Popular</h2>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
