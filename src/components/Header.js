@@ -5,19 +5,11 @@ import { FaBlog } from 'react-icons/fa';
 const Header = ({ active, setActive, handleLogout, user }) => {
   const userId = user?.uid;
 
-  // const handleLogout = () => {
-  //   signOut(auth).then(() => {
-  //     setUser(null);
-  //     setActive('login');
-  //     navigate('/login');
-  //   });
-  // };
-
   return (
-    <div className='w-full h-14 bg-blue-700  text-whiteText flex flex-row justify-between items-center gap-5 sticky top-0 z-50'>
-      <div className=' px-4  flex flex-row items-center gap-5 '>
+    <div className='w-full h-14 bg-blue-500  text-whiteText flex flex-row justify-between items-center gap-5 sticky top-0 z-50'>
+      <div className=' px-4  flex flex-row items-center gap-3 '>
         <Link to='/'>
-          <div className='headerHover flex flex-col text-white'>
+          <div className=' flex flex-col text-white'>
             <FaBlog />
           </div>
         </Link>
@@ -41,22 +33,22 @@ const Header = ({ active, setActive, handleLogout, user }) => {
           </div>
         </Link>
       </div>
-      <div className=' px-4  flex flex-row items-center justify-center gap-5 '>
+      <div className='px-4  flex flex-row items-center justify-center gap-2  '>
         {userId ? (
           <>
             <div>
               <img
-                className='w-[30px] h-[30px] rounded  flex justify-center items-center '
+                className='w-[22px] h-[22px] rounded  mb-3 flex justify-center items-center '
                 src='https://cdn-icons-png.flaticon.com/512/149/149071.png'
                 alt='logo'
               />
             </div>
-            <p className='mt-[10px] -ml-[40px] text-m text-white flex justify-center items-center'>
+            <p className=' text-m  text-white font-light flex justify-center items-center capitalize'>
               {user?.displayName}
             </p>
             <Link to='./login'>
               <p
-                className='flex justify-center text-white headerHover no-underline'
+                className='text-whiteText font-light headerHover'
                 onClick={handleLogout}
               >
                 Logout
@@ -65,7 +57,7 @@ const Header = ({ active, setActive, handleLogout, user }) => {
           </>
         ) : (
           <Link to='/login'>
-            <div className='flex justify-center text-white headerHover'>
+            <div className='flex justify-center font-light text-white headerHover'>
               <p>Login</p>
             </div>
           </Link>

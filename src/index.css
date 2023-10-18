@@ -20,7 +20,7 @@ body {
     @apply text-sm font-titleFont tracking-wide hover:text-gray-100 cursor-pointer hover:underline duration-150;
   }
 }
-
+/* 
 .blog-heading {
   font-size: 24px;
   color: #222;
@@ -102,13 +102,4 @@ body {
   font-size: 14px;
   color: #777;
 }
-
-.btn-read {
-  background: #544e66 !important;
-  @include border-radius(0!important);
-  color: #fff !important;
-  padding: 5px 10px !important;
-  float: left;
-  margin-top: 10px;
-  font-size: 14px;
-}
+*/

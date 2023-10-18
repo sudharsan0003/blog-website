@@ -18,6 +18,7 @@ import Spinner from '../components/spinner';
 import { toast } from 'react-toastify';
 import Tags from '../components/Tags';
 import Trending from '../components/Trending';
+import Footer from '../components/Footer';
 
 const Home = ({ setActive, user }) => {
   const [loading, setLoading] = useState(true);
@@ -82,19 +83,16 @@ const Home = ({ setActive, user }) => {
   };
 
   return (
-    <div className='container-fluid pb-4 pt-4 padding'>
+    <div className=' pt-4 '>
       <div className='container-padding'>
         <div className='row mx-0'>
           <Trending blogs={trendBlogs} />
         </div>
-        <div className='col-md-8'>
-          Daily Blogs
+        <div>
+          <div className='text-center mt-20 mb-2'>Daily Blogs</div>
           <BlogSection blogs={blogs} user={user} handleDelete={handleDelete} />
         </div>
-        {/* <div className='col-md-3'>
-          <Tags tags={tags} />
-          <h2>Most Popular</h2>
-        </div> */}
+        <Footer />
       </div>
     </div>
   );

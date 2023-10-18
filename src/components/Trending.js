@@ -26,33 +26,37 @@ const Trending = ({ blogs }) => {
   };
   return (
     <>
-      <div className=' '>
-        <div className='blog-heading text-start py-2 mb-4'>Trending</div>
-      </div>
-      <OwlCarousel className='owl-theme w-2/4 h-1/2  ' {...options}>
-        {blogs?.map((item) => (
-          <div className='item px-2' key={item.id}>
-            <Link to={`/detail/${item.id}`}>
-              <div className='trending-img-position'>
-                <div className='trending-img-size'>
-                  <img
-                    src={item.imgUrl}
-                    alt={item.title}
-                    className='trending-img-relative'
-                  />
-                </div>
-                <div className='trending-img-absolute'></div>
-                <div className='trending-img-absolute-1'>
-                  <span className='text-white'>{item.title}</span>
-                  <div className='trending-meta-info'>
-                    {item.author} - {item.timestamp.toDate().toDateString()}
+      <div className=' h-80'>
+        <div>
+          <div className='blog-heading text-black text-center py-2 mb-4 '>
+            Trending
+          </div>
+        </div>
+        <OwlCarousel className='owl-theme w-3/4  ' {...options}>
+          {blogs?.map((item) => (
+            <div className='item px-2' key={item.id}>
+              <Link to={`/detail/${item.id}`}>
+                <div className='relative overflow-hidden z-5 cursor-pointer'>
+                  <div className='h-60 w-60 overflow-hidden '>
+                    <img
+                      src={item.imgUrl}
+                      alt={item.title}
+                      className=' relative h-60  w-60 min-w-full'
+                    />
+                  </div>
+                  <div className='absolute h-full w-full top-0 right-0 z-0'></div>
+                  <div className='absolute w-full text-center z-0 p-2.5 bottom-0'>
+                    <span className='text-black text-center'>{item.title}</span>
+                    <div className='text-sm text-black text-center'>
+                      {item.author} - {item.timestamp.toDate().toDateString()}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </Link>
-          </div>
-        ))}
-      </OwlCarousel>
+              </Link>
+            </div>
+          ))}
+        </OwlCarousel>
+      </div>
     </>
   );
 };
