@@ -5,18 +5,15 @@ import {
   deleteDoc,
   doc,
   getDocs,
-  limit,
   onSnapshot,
   query,
-  orderBy,
   where,
-  startAfter,
 } from 'firebase/firestore';
 import { db } from '../firebase';
 import BlogSection from '../components/BlogSection';
 import Spinner from '../components/spinner';
 import { toast } from 'react-toastify';
-import Tags from '../components/Tags';
+
 import Trending from '../components/Trending';
 import Footer from '../components/Footer';
 
