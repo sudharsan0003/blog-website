@@ -11,35 +11,44 @@ const BlogSection = ({ blogs, user, handleDelete }) => {
   const userId = user?.uid;
   return (
     <div className=' w-full flex justify-center items-center'>
-      <div className='blog-heading text-start py-2 mb-4 p-8 grid grid-cols-2 gap-x-36 gap-y-10  w-[90%] '>
+      <div className='blog-heading text-start py-2 mb-4 p-8 grid gap-5'>
         {blogs?.map((item) => (
-          <div className='row pb-4 border-[1px] border-blue-200 ' key={item.id}>
+          <div
+            className='row pb-4 border-[1px] bg-slate-100 border-orange-200  '
+            key={item.id}
+          >
             <div className='col-md-5'>
-              <div className='hover-blogs-img'>
-                <div className='h-60 w-52 overflow-hidden mt-4 -ml-2'>
-                  <img
-                    src={item.imgUrl}
-                    alt={item.title}
-                    className='h-60 w-52 overflow-hidden'
-                  />
-                  <div></div>
-                </div>
+              <div className='h-60 w-3/4 overflow-hidden mt-4 ml-2'>
+                <img
+                  src={item.imgUrl}
+                  alt={item.title}
+                  className='h-full w-full overflow-hidden'
+                />
+                <div></div>
               </div>
             </div>
-            <div className='col-md-7  '>
-              <div className='text-start ml-5'>
-                <h6 className='category category-color'>{item.category}</h6>
-                <span className='title py-2'>{item.title}</span>
-                <span className='meta-info'>
-                  <p className='author'>{item.author}</p>
-                  {item.timestamp.toDate().toDateString()}
+            <div className='col-md-7 mt-4 -ml-10'>
+              <div className='text-start '>
+                <h6 className='text-orange-500 text-lg font-bold'>
+                  {item.category}
+                </h6>
+                <span className='title py-2 capitalize  text-base font-semobold'>
+                  {item.title}
+                </span>
+                <span className='flex col -gap-2'>
+                  <p className='font-bold text-base capitalize'>
+                    {item.author}
+                  </p>
+                  <span className='ml-2 mt-[1px] text-sm font-normal '>
+                    - {item.timestamp.toDate().toDateString()}
+                  </span>
                 </span>
               </div>
-              <div className='short-description ml-5'>
+              <div className='short-description  '>
                 {short(item.description, 120)}
               </div>
               <Link to={`/detail/${item.id}`}>
-                <button className='w-2/4 ml-5  py-1.5 text-sm text-white font-semibold rounded-sm bg-[#4287f5]  '>
+                <button className=' px-2  py-1.5 text-sm text-white font-semibold rounded-sm mt-2 bg-[#4287f5]  '>
                   Read More
                 </button>
               </Link>

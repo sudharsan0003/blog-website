@@ -63,7 +63,7 @@ const Login = ({ setActive }) => {
 
   return (
     <div className='w-full'>
-      <div className=' border-[1px] border-green-600 mt-4  w-[350px] mx-auto flex flex-col items-center text-white bg-gray-600'>
+      <div className=' border-[1px]  mt-4  w-[350px] mx-auto flex flex-col items-center text-white bg-gradient-to-r from-sky-400 to-indigo-400 rounded '>
         <div>
           <div className='w-full flex justify-center items-center heading mt-4'>
             {!signUp ? 'Sign-In' : 'Sign-Up'}
@@ -77,7 +77,7 @@ const Login = ({ setActive }) => {
                   <div className='col-6 py-3'>
                     <input
                       type='text'
-                      className='w-full lowercase py-1 border border-zinc-400 px-2 text-base rounded-sm outline-none focus-within:border-[#e77600] focus-within:shadow-amazonInput text-black'
+                      className='w-full  py-1 border border-zinc-400 px-2 text-base rounded-sm outline-none  text-black'
                       placeholder='First Name'
                       name='firstName'
                       value={firstName}
@@ -87,7 +87,7 @@ const Login = ({ setActive }) => {
                   <div className='col-6 py-3'>
                     <input
                       type='text'
-                      className='w-full lowercase py-1 border border-zinc-400 px-2 text-base rounded-sm outline-none focus-within:border-[#e77600] focus-within:shadow-amazonInput text-black'
+                      className='w-full  py-1 border border-zinc-400 px-2 text-base rounded-sm outline-none  text-black'
                       placeholder='Last Name'
                       name='lastName'
                       value={lastName}
@@ -99,7 +99,7 @@ const Login = ({ setActive }) => {
               <div className='col-12 py-3'>
                 <input
                   type='email'
-                  className='w-full lowercase py-1 border border-zinc-400 px-2 text-base rounded-sm outline-none focus-within:border-[#e77600] focus-within:shadow-amazonInput text-black'
+                  className='w-full lowercase py-1 border border-zinc-400 px-2 text-base rounded-sm outline-none  text-black'
                   placeholder='Email'
                   name='email'
                   value={email}
@@ -109,7 +109,7 @@ const Login = ({ setActive }) => {
               <div className='col-12 py-3'>
                 <input
                   type='password'
-                  className='w-full lowercase py-1 border border-zinc-400 px-2 text-base rounded-sm outline-none focus-within:border-[#e77600] focus-within:shadow-amazonInput text-black'
+                  className='w-full py-1 border border-zinc-400 px-2 text-base rounded-sm outline-none  text-black'
                   placeholder='Password'
                   name='password'
                   value={password}
@@ -120,7 +120,7 @@ const Login = ({ setActive }) => {
                 <div className='col-12 py-3'>
                   <input
                     type='password'
-                    className='w-full lowercase py-1 border border-zinc-400 px-2 text-base rounded-sm outline-none focus-within:border-[#e77600] focus-within:shadow-amazonInput text-black'
+                    className='w-full  py-1 border border-zinc-400 px-2 text-base rounded-sm outline-none  text-black'
                     placeholder='Confirm Password'
                     name='confirmPassword'
                     value={confirmPassword}
@@ -143,9 +143,9 @@ const Login = ({ setActive }) => {
                 <>
                   <div className='text-center justify-content-center mt-2 pt-2'>
                     <p className='small fw-bold mt-2 pt-1 mb-0'>
-                      Don't have an account ?&nbsp;
+                      Don't have an account ?
                       <span
-                        className='link-danger'
+                        className='ml-1 text-yellow-400'
                         style={{ textDecoration: 'none', cursor: 'pointer' }}
                         onClick={() => setSignUp(true)}
                       >
@@ -158,12 +158,12 @@ const Login = ({ setActive }) => {
                 <>
                   <div className='text-center justify-content-center mt-2 pt-2'>
                     <p className='small fw-bold mt-2 pt-1 mb-0'>
-                      Already have an account ?&nbsp;
+                      Already have an account ?
                       <span
+                        className='ml-1 text-yellow-400'
                         style={{
                           textDecoration: 'none',
                           cursor: 'pointer',
-                          color: '#298af2',
                         }}
                         onClick={() => setSignUp(false)}
                       >

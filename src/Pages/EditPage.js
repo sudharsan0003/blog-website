@@ -23,12 +23,15 @@ const initialState = {
 };
 
 const categoryOption = [
+  'Lifestyle',
+  'Art',
+  'Gaming',
+  'Fitness',
   'Fashion',
   'Technology',
   'Food',
-  'Politics',
+  'Nature',
   'Sports',
-  'Business',
 ];
 
 const EditPage = ({ user, setActive }) => {
@@ -142,7 +145,7 @@ const EditPage = ({ user, setActive }) => {
     <div className='container-fluid mb-4'>
       <div className='container'>
         <div className='col-12'>
-          <div className='text-center heading py-2'>
+          <div className='text-black text-xl text-center font-semibold py-2 mb-42'>
             {id ? 'Update Blog' : 'Create Blog'}
           </div>
         </div>
@@ -216,9 +219,9 @@ const EditPage = ({ user, setActive }) => {
                   onChange={(e) => setFile(e.target.files[0])}
                 />
               </div>
-              <div className='col-12 py-3 text-center'>
+              <div className=' py-3 text-center'>
                 <button
-                  className='btn btn-add'
+                  className='w-2/4 m font-bold  py-1.5 rounded-md mt-3 font-titleFont  text-base bg-gradient-to-tr from-yellow-400 to-yellow-200 border border-yellow-500 hover:border-yellow-700 hover:from-yellow-300 to hover:to-yellow-400 active:bg-gradient-to-bl active:from-yellow-400 active:to-yellow-500 duration-200'
                   type='submit'
                   disabled={progress !== null && progress < 100}
                 >

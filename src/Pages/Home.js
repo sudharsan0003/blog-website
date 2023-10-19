@@ -89,7 +89,10 @@ const Home = ({ setActive, user }) => {
           <Trending blogs={trendBlogs} />
         </div>
         <div>
-          <div className='text-center mt-20 mb-2'>Daily Blogs</div>
+          <div className=' mt-20  text-black text-2xl text-center font-bold py-2 mb-4 '>
+            Daily <span className='text-orange-500'>B</span>logs{' '}
+            <span className='text-orange-500'>...</span>
+          </div>
           <BlogSection blogs={blogs} user={user} handleDelete={handleDelete} />
         </div>
         <Footer />

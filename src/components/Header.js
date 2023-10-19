@@ -6,28 +6,30 @@ const Header = ({ active, setActive, handleLogout, user }) => {
   const userId = user?.uid;
 
   return (
-    <div className='w-full h-14 bg-blue-500  text-whiteText flex flex-row justify-between items-center gap-5 sticky top-0 z-50'>
+    <div className='w-full h-14 bg-slate-700  text-whiteText flex flex-row justify-between items-center gap-5 sticky top-0 z-50'>
       <div className=' px-4  flex flex-row items-center gap-3 '>
         <Link to='/'>
-          <div className=' flex flex-col text-white'>
+          <div className=' flex flex-col text-white mb-3 '>
             <FaBlog />
           </div>
         </Link>
         <Link to='/'>
           <div className='headerHover  mdl:inline-flex'>
-            <p className='text-sm  text-white font-light flex flex-col'>Home</p>
+            <p className='text-lg  text-white  no-underline font-normal flex flex-col'>
+              Home
+            </p>
           </div>
         </Link>
         <Link to='/create'>
           <div className='headerHover  mdl:inline-flex'>
-            <p className='text-sm pl-2 text-white font-light flex flex-col'>
+            <p className='text-lg pl-2 text-white font-normal flex flex-col'>
               Create
             </p>
           </div>
         </Link>
         <Link to='/about'>
           <div className='headerHover  mdl:inline-flex'>
-            <p className='text-sm pl-2 text-white font-light flex flex-col'>
+            <p className='text-lg pl-2 text-white font-normal flex flex-col'>
               About
             </p>
           </div>
@@ -48,7 +50,7 @@ const Header = ({ active, setActive, handleLogout, user }) => {
             </p>
             <Link to='./login'>
               <p
-                className='text-whiteText font-light headerHover'
+                className='text-whiteText font-normal text-sm headerHover'
                 onClick={handleLogout}
               >
                 Logout
@@ -57,7 +59,7 @@ const Header = ({ active, setActive, handleLogout, user }) => {
           </>
         ) : (
           <Link to='/login'>
-            <div className='flex justify-center font-light text-white headerHover'>
+            <div className='flex justify-center font-normal text-white headerHover'>
               <p>Login</p>
             </div>
           </Link>

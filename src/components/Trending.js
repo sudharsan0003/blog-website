@@ -9,6 +9,8 @@ const Trending = ({ blogs }) => {
     loop: true,
     margin: 10,
     nav: true,
+    autoplay: true,
+    slideSpeed: 200,
     responsive: {
       0: {
         items: 1,
@@ -26,10 +28,10 @@ const Trending = ({ blogs }) => {
   };
   return (
     <>
-      <div className=' h-80'>
+      <div className=' h-80 ml-3'>
         <div>
-          <div className='blog-heading text-black text-center py-2 mb-4 '>
-            Trending
+          <div className='text-black text-2xl text-center font-bold py-2 mb-4 '>
+            <span className='text-orange-500'>Trend</span>ing
           </div>
         </div>
         <OwlCarousel className='owl-theme w-3/4  ' {...options}>
@@ -46,8 +48,8 @@ const Trending = ({ blogs }) => {
                   </div>
                   <div className='absolute h-full w-full top-0 right-0 z-0'></div>
                   <div className='absolute w-full text-center z-0 p-2.5 bottom-0'>
-                    <span className='text-black text-center'>{item.title}</span>
-                    <div className='text-sm text-black text-center'>
+                    <span className='text-white text-center'>{item.title}</span>
+                    <div className='text-sm text-white text-center capitalize -ml-5'>
                       {item.author} - {item.timestamp.toDate().toDateString()}
                     </div>
                   </div>
