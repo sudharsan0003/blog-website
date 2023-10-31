@@ -10,6 +10,7 @@ import Header from './components/Header';
 import Login from './pages/Login';
 import { auth } from './firebase';
 import { signOut } from 'firebase/auth';
+import Searchbar from './components/Searchbar';
 
 const App = () => {
   const [active, setActive] = useState('home');
@@ -45,6 +46,10 @@ const App = () => {
       <ToastContainer position='top-center' />
       <Routes>
         <Route path='/' element={<Home setActive={setActive} user={user} />} />
+        <Route
+          path='/search'
+          element={<Home setActive={setActive} user={user} />}
+        />
         <Route path='/detail/:id' element={<Detail setActive={setActive} />} />
         <Route
           path='/create'
