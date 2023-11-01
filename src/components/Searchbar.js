@@ -21,11 +21,13 @@ const Searchbar = ({ search, handleChange }) => {
           <input
             type='text'
             value={search}
-            placeholder='Search'
+            placeholder='Search With Title & Category'
             onChange={handleChange}
-            className='border-solid border-gray-600'
+            className='w-2/4 text-base  border-2 border-gray-400  px-2 rounded-tl-md rounded-bl-md'
           />
-          <LuSearch />
+          <button className='w-12 h-[28px] flex items-center justify-center bg-orange-400  cursor-pointer rounded-tr-md rounded-br-md -ml-15'>
+            <LuSearch />
+          </button>
         </div>
       </form>
     </div>
@@ -33,7 +35,3 @@ const Searchbar = ({ search, handleChange }) => {
 };
 
 export default Searchbar;
-
-/*
-
-*/

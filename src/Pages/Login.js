@@ -19,6 +19,7 @@ const initialState = {
 const Login = ({ setActive }) => {
   const [state, setState] = useState(initialState);
   const [signUp, setSignUp] = useState(false);
+  const [show, setShow] = useState(false);
 
   const { email, password, firstName, lastName, confirmPassword } = state;
 
@@ -175,6 +176,27 @@ const Login = ({ setActive }) => {
               )}
             </div>
           </div>
+        </div>
+      </div>
+      <div className='flex flex-row justify-center items-center mt-3'>
+        <button
+          class=' px-2  py-1.5 text-sm text-white font-semibold rounded-sm mt-2 bg-[#4287f5]  '
+          onClick={() => setShow(!show)}
+        >
+          View Test Credential
+        </button>
+        <div>
+          {show ? (
+            <div className=' p-1 ml-4 mt-3 bg-blue-400 border b-2 rounded'>
+              <h6 className='text-center font-bold'>Test Credential</h6>
+              <p>
+                <span className='font-semibold'>Email :</span> test01@gmail.com
+              </p>
+              <p className='-mt-4'>
+                <span className='font-semibold'>Password :</span> 12121212
+              </p>
+            </div>
+          ) : null}
         </div>
       </div>
     </div>
