@@ -10,8 +10,7 @@ import Header from './components/Header';
 import Login from './pages/Login';
 import { auth } from './firebase';
 import { signOut } from 'firebase/auth';
-import Trending from './components/Trending';
-import BlogSection from './components/BlogSection';
+import Nodata from './pages/Nodata';
 
 const App = () => {
   const [active, setActive] = useState('home');
@@ -32,7 +31,7 @@ const App = () => {
     signOut(auth).then(() => {
       setUser(null);
       setActive('login');
-      navigate('/login');
+      navigate('/');
     });
   };
 
@@ -44,26 +43,23 @@ const App = () => {
         user={user}
         handleLogout={handleLogout}
       />
-      <ToastContainer position='top-center' />
       <Routes>
-        <Route path='/about' element={<About />} />
+        <Route path='/' element={<Login setActive={setActive} />} />
         <Route
-          path='/'
-          element={<Home setActive={setActive} active={active} user={user} />}
-        />
-        <Route
-          path='/search'
-          element={<Home setActive={setActive} user={user} />}
+          path='/home'
+          element={
+            user && user.uid ? (
+              <Home setActive={setActive} user={user} />
+            ) : (
+              <Navigate to='/' />
+            )
+          }
         />
         <Route path='/detail/:id' element={<Detail setActive={setActive} />} />
         <Route
           path='/create'
           element={
-            user && user.uid ? (
-              <EditPage user={user} />
-            ) : (
-              <Navigate to='/login' />
-            )
+            user && user.uid ? <EditPage user={user} /> : <Navigate to='/' />
           }
         />
         <Route
@@ -72,12 +68,12 @@ const App = () => {
             user && user.uid ? (
               <EditPage user={user} setActive={setActive} />
             ) : (
-              <Navigate to='/' />
+              <Navigate to='/home' />
             )
           }
         />
-        <Route path='/login' element={<Login setActive={setActive} />} />
         <Route path='/about' element={<About />} />
+        <Route path='*' element={<Nodata />} />
       </Routes>
     </div>
   );

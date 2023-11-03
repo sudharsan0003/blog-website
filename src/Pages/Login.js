@@ -2,10 +2,11 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   updateProfile,
+  signInWithPopup,
 } from 'firebase/auth';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
-import { auth } from '../firebase';
+import { auth, provider } from '../firebase';
 import { useNavigate } from 'react-router-dom';
 
 const initialState = {
@@ -19,15 +20,29 @@ const initialState = {
 const Login = ({ setActive }) => {
   const [state, setState] = useState(initialState);
   const [signUp, setSignUp] = useState(false);
-  const [show, setShow] = useState(false);
-
   const { email, password, firstName, lastName, confirmPassword } = state;
+  const [show, setShow] = useState(false);
+  const [value, setValue] = useState('');
 
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     setState({ ...state, [e.target.name]: e.target.value });
   };
+
+  const handleLogin = (user) => {
+    signInWithPopup(auth, provider).then((data) => {
+      setValue(data.user.email);
+      localStorage.setItem('email', data.user.email);
+      setTimeout(() => {
+        navigate('/home');
+      }, 1500);
+      toast.success('Login Successfully');
+    });
+  };
+  useEffect(() => {
+    setValue(localStorage.getItem('email'));
+  });
 
   const handleAuth = async (e) => {
     e.preventDefault();
@@ -59,7 +74,7 @@ const Login = ({ setActive }) => {
         return toast.error('All fields are mandatory to fill');
       }
     }
-    navigate('/');
+    navigate('/home');
   };
 
   return (
@@ -71,8 +86,8 @@ const Login = ({ setActive }) => {
           </div>
         </div>
         <div className=' text-white font-titleFont text-lg font-semibold px-6 py-2 flex justify-center items-center '>
-          <div className='w-full flex flex-col justify-center items-center heading mt-4'>
-            <form className='row ' onSubmit={handleAuth}>
+          <div className='w-full flex flex-col justify-center items-center heading '>
+            <form className='row  ' onSubmit={handleAuth}>
               {signUp && (
                 <>
                   <div className='col-6 py-3'>
@@ -132,10 +147,22 @@ const Login = ({ setActive }) => {
 
               <div className='col-12 py-3 text-center'>
                 <button
-                  className={`btn ${!signUp ? 'btn-sign-in' : 'btn-sign-up'}`}
+                  className={`btn ${
+                    !signUp ? 'btn-sign-in' : 'btn-sign-up'
+                  } "border-2 border-white px-5 rounded "`}
                   type='submit'
+                  style={{ color: '#fff', fontWeight: '800' }}
                 >
                   {!signUp ? 'Sign-in' : 'Sign-up'}
+                </button>
+              </div>
+              <h5 className='text-center '> Or</h5>
+              <div className=' flex justify-center items-center rounded'>
+                <button
+                  onClick={handleLogin}
+                  className='border-1 border-white p-2 rounded mb-3 text-base'
+                >
+                  Sign-in with Google
                 </button>
               </div>
             </form>
@@ -143,7 +170,7 @@ const Login = ({ setActive }) => {
               {!signUp ? (
                 <>
                   <div className='text-center justify-content-center mt-2 pt-2'>
-                    <p className='small fw-bold mt-2 pt-1 mb-0'>
+                    <p className='small fw-bold -mt-4 pt-1 mb-0'>
                       Don't have an account ?
                       <span
                         className='ml-1 text-yellow-400'
@@ -178,26 +205,24 @@ const Login = ({ setActive }) => {
           </div>
         </div>
       </div>
-      <div className='flex flex-row justify-center items-center mt-3'>
+      <div className='flex   justify-center items-center mt-2 '>
         <button
-          class=' px-2  py-1.5 text-sm text-white font-semibold rounded-sm mt-2 bg-[#4287f5]  '
+          className='px-2  py-1.5 text-sm text-white font-semibold rounded-sm mt-2 bg-[#4287f5]'
           onClick={() => setShow(!show)}
         >
           View Test Credential
         </button>
-        <div>
-          {show ? (
-            <div className=' p-1 ml-4 mt-3 bg-blue-400 border b-2 rounded'>
-              <h6 className='text-center font-bold'>Test Credential</h6>
-              <p>
-                <span className='font-semibold'>Email :</span> test01@gmail.com
-              </p>
-              <p className='-mt-4'>
-                <span className='font-semibold'>Password :</span> 12121212
-              </p>
-            </div>
-          ) : null}
-        </div>
+        {show ? (
+          <div className=' flex flex-col  border-1 px-3 bg-blue-100 ml-3 border-blue-400 rounded mb-3'>
+            <h6 className='font-semibold '>User Credential</h6>
+            <p>
+              <span className='font-semibold '>Email :</span> test1@gmail.com
+            </p>
+            <p className='-mt-4'>
+              <span className='font-semibold  '>Password :</span> 121212
+            </p>
+          </div>
+        ) : null}
       </div>
     </div>
   );
