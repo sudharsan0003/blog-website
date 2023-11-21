@@ -11,6 +11,7 @@ import Login from './pages/Login';
 import { auth } from './firebase';
 import { signOut } from 'firebase/auth';
 import Nodata from './pages/Nodata';
+import { toast } from 'react-toastify';
 
 const App = () => {
   const [active, setActive] = useState('home');
@@ -31,7 +32,10 @@ const App = () => {
     signOut(auth).then(() => {
       setUser(null);
       setActive('login');
-      navigate('/');
+      setTimeout(() => {
+        navigate('/');
+      }, 1500);
+      toast.success('Logout Successfully');
     });
   };
 
@@ -42,6 +46,17 @@ const App = () => {
         active={active}
         user={user}
         handleLogout={handleLogout}
+      />
+      <ToastContainer
+        position='top-right'
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={true}
+        pauseOnFocusLoss
+        Draggable
+        pauseOnHovertheme='colored'
       />
       <Routes>
         <Route path='/' element={<Login setActive={setActive} />} />
