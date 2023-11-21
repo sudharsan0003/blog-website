@@ -4,12 +4,13 @@ import { LuSearch } from 'react-icons/lu';
 
 const Searchbar = ({ search, handleChange }) => {
   const navigate = useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (search) {
       navigate(`/search?searchQuery=${search}`);
     } else {
-      navigate('/');
+      navigate('/home');
     }
   };
 

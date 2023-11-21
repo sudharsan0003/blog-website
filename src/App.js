@@ -55,6 +55,11 @@ const App = () => {
             )
           }
         />
+        <Route
+          path='/search'
+          element={<Home setActive={setActive} user={user} />}
+        />
+
         <Route path='/detail/:id' element={<Detail setActive={setActive} />} />
         <Route
           path='/create'
@@ -73,7 +78,7 @@ const App = () => {
           }
         />
         <Route path='/about' element={<About />} />
-        <Route path='*' element={<Nodata />} />
+        {/* <Route path='*' element={<Nodata />} /> */}
       </Routes>
     </div>
   );

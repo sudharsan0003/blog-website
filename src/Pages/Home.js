@@ -69,12 +69,6 @@ const Home = ({ setActive, user, active }) => {
     };
   }, [setActive, active]);
 
-  const getBlogs = async () => {
-    const blogRef = collection(db, 'blogs');
-    const docSnapshot = await getDocs(blogRef);
-    setBlogs(docSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
-  };
-
   const searchBlogs = async () => {
     const blogRef = collection(db, 'blogs');
     const searchTitleQuery = query(blogRef, where('title', '==', searchQuery));
@@ -91,7 +85,7 @@ const Home = ({ setActive, user, active }) => {
       searchTitleBlogs.push({ id: doc.id, ...doc.data() });
     });
     categorySnapshot.forEach((doc) => {
-      searchCategoryBlogs.push({ id: doc.id, ...doc.data() });
+      searchTitleBlogs.push({ id: doc.id, ...doc.data() });
     });
     const combinedSearchBlogs = searchTitleBlogs.concat(searchCategoryBlogs);
     setBlogs(combinedSearchBlogs);
@@ -118,6 +112,12 @@ const Home = ({ setActive, user, active }) => {
         console.log(err);
       }
     }
+  };
+
+  const getBlogs = async () => {
+    const blogRef = collection(db, 'blogs');
+    const docSnapshot = await getDocs(blogRef);
+    setBlogs(docSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
   };
 
   const handleChange = (e) => {
