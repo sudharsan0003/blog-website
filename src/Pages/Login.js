@@ -1,35 +1,16 @@
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  updateProfile,
-  signInWithPopup,
-} from 'firebase/auth';
 import React, { useState, useEffect } from 'react';
-
-import { toast } from 'react-toastify';
+import { useNavigate, Link } from 'react-router-dom';
+import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { auth, provider } from '../firebase';
-import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
-const initialState = {
-  firstName: '',
-  lastName: '',
-  email: '',
-  password: '',
-  confirmPassword: '',
-};
-
-const Login = ({ setActive }) => {
-  const [state, setState] = useState(initialState);
-  const [signUp, setSignUp] = useState(false);
-  const { email, password, firstName, lastName, confirmPassword } = state;
+const Login = () => {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const [isTestBtn, setIsTestBtn] = useState(false);
   const [show, setShow] = useState(false);
   const [value, setValue] = useState('');
-
-  const navigate = useNavigate();
-
-  const handleChange = (e) => {
-    setState({ ...state, [e.target.name]: e.target.value });
-  };
 
   const handleLogin = (user) => {
     signInWithPopup(auth, provider).then((data) => {
@@ -45,37 +26,25 @@ const Login = ({ setActive }) => {
     setValue(localStorage.getItem('email'));
   });
 
-  const handleAuth = async (e) => {
+  const handleAuth = async () => {
+    await signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        const { providerData } = user;
+        setEmail('');
+        setPassword('');
+        navigate('/home');
+      })
+      .catch((err) => {
+        console.log('Err', err.message);
+      });
+  };
+
+  const handleFinalLogin = (e) => {
     e.preventDefault();
-    if (!signUp) {
-      if (email && password) {
-        const { user } = await signInWithEmailAndPassword(
-          auth,
-          email,
-          password
-        );
-        // setUser(user);
-        setActive('Home');
-      } else {
-        return toast.error('All fields are mandatory to fill');
-      }
-    } else {
-      if (password !== confirmPassword) {
-        return toast.error("Password doesn't match");
-      }
-      if (firstName && lastName && email && password) {
-        const { user } = await createUserWithEmailAndPassword(
-          auth,
-          email,
-          password
-        );
-        await updateProfile(user, { displayName: `${firstName} ${lastName}` });
-        setActive('home');
-      } else {
-        return toast.error('All fields are mandatory to fill');
-      }
-    }
-    navigate('/home');
+    if (email && password) {
+      handleAuth();
+    } else toast.warning('Input Field Is Mandatory !');
   };
 
   return (
@@ -83,36 +52,12 @@ const Login = ({ setActive }) => {
       <div className=' border-[1px]  mt-4  w-[350px] mx-auto flex flex-col items-center text-white bg-gradient-to-r from-sky-400 to-indigo-400 rounded '>
         <div>
           <div className='w-full flex justify-center items-center heading mt-4'>
-            {!signUp ? 'Sign-In' : 'Sign-Up'}
-          </div>
+            Sign-in
+          </div>{' '}
         </div>
         <div className=' text-white font-titleFont text-lg font-semibold px-6 py-2 flex justify-center items-center '>
           <div className='w-full flex flex-col justify-center items-center heading '>
-            <form className='row  ' onSubmit={handleAuth}>
-              {signUp && (
-                <>
-                  <div className='col-6 py-3'>
-                    <input
-                      type='text'
-                      className='w-full  py-1 border border-zinc-400 px-2 text-base rounded-sm outline-none  text-black'
-                      placeholder='First Name'
-                      name='firstName'
-                      value={firstName}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className='col-6 py-3'>
-                    <input
-                      type='text'
-                      className='w-full  py-1 border border-zinc-400 px-2 text-base rounded-sm outline-none  text-black'
-                      placeholder='Last Name'
-                      name='lastName'
-                      value={lastName}
-                      onChange={handleChange}
-                    />
-                  </div>
-                </>
-              )}
+            <form className='row  ' onSubmit={handleFinalLogin}>
               <div className='col-12 py-3'>
                 <input
                   type='email'
@@ -120,7 +65,7 @@ const Login = ({ setActive }) => {
                   placeholder='Email'
                   name='email'
                   value={email}
-                  onChange={handleChange}
+                  onChange={(event) => setEmail(event.target.value)}
                 />
               </div>
               <div className='col-12 py-3'>
@@ -130,31 +75,17 @@ const Login = ({ setActive }) => {
                   placeholder='Password'
                   name='password'
                   value={password}
-                  onChange={handleChange}
+                  onChange={(event) => setPassword(event.target.value)}
                 />
               </div>
-              {signUp && (
-                <div className='col-12 py-3'>
-                  <input
-                    type='password'
-                    className='w-full  py-1 border border-zinc-400 px-2 text-base rounded-sm outline-none  text-black'
-                    placeholder='Confirm Password'
-                    name='confirmPassword'
-                    value={confirmPassword}
-                    onChange={handleChange}
-                  />
-                </div>
-              )}
 
               <div className='col-12 py-3 text-center'>
                 <button
-                  className={`btn ${
-                    !signUp ? 'btn-sign-in' : 'btn-sign-up'
-                  } "border-2 border-white px-5 rounded "`}
+                  className={'border-2 border-white px-5 rounded '}
                   type='submit'
                   style={{ color: '#fff', fontWeight: '800' }}
                 >
-                  {!signUp ? 'Sign-in' : 'Sign-up'}
+                  Sign-in
                 </button>
               </div>
               <h5 className='text-center '> Or</h5>
@@ -168,40 +99,18 @@ const Login = ({ setActive }) => {
               </div>
             </form>
             <div>
-              {!signUp ? (
-                <>
-                  <div className='text-center justify-content-center mt-2 pt-2'>
-                    <p className='small fw-bold -mt-4 pt-1 mb-0'>
-                      Don't have an account ?
-                      <span
-                        className='ml-1 text-yellow-400'
-                        style={{ textDecoration: 'none', cursor: 'pointer' }}
-                        onClick={() => setSignUp(true)}
-                      >
-                        Sign Up
-                      </span>
-                    </p>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div className='text-center justify-content-center mt-2 pt-2'>
-                    <p className='small fw-bold mt-2 pt-1 mb-0'>
-                      Already have an account ?
-                      <span
-                        className='ml-1 text-yellow-400'
-                        style={{
-                          textDecoration: 'none',
-                          cursor: 'pointer',
-                        }}
-                        onClick={() => setSignUp(false)}
-                      >
-                        Sign In
-                      </span>
-                    </p>
-                  </div>
-                </>
-              )}
+              <div className='text-center justify-content-center mt-2 pt-2'>
+                <p className='small fw-bold -mt-4 pt-1 mb-0'>
+                  Don't have an account ?
+                  <Link
+                    to='/registration'
+                    className='ml-1 text-yellow-400'
+                    style={{ textDecoration: 'none', cursor: 'pointer' }}
+                  >
+                    Sign Up
+                  </Link>
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -217,10 +126,10 @@ const Login = ({ setActive }) => {
           <div className=' flex flex-col  border-1 px-3 bg-blue-100 ml-3 border-blue-400 rounded mb-3'>
             <h6 className='font-semibold '>User Credential</h6>
             <p>
-              <span className='font-semibold '>Email :</span> test1@gmail.com
+              <span className='font-semibold '>Email :</span> test@gmail.com
             </p>
             <p className='-mt-4'>
-              <span className='font-semibold  '>Password :</span> 121212
+              <span className='font-semibold  '>Password :</span> 12121212
             </p>
           </div>
         ) : null}

@@ -38,15 +38,15 @@ const Header = ({ active, setActive, handleLogout, user }) => {
       <div className='px-4  flex flex-row items-center justify-center gap-2  '>
         {userId ? (
           <>
-            <div>
+            <Link to='/profile'>
               <img
                 className='w-[22px] h-[22px] rounded  mb-3 flex justify-center items-center '
                 src='https://cdn-icons-png.flaticon.com/512/149/149071.png'
                 alt='logo'
               />
-            </div>
+            </Link>
             <p className=' text-m  text-white font-light flex justify-center items-center capitalize'>
-              {user?.displayName}
+              {/* {userName} */}
             </p>
             <Link to='/' className='no-underline'>
               <p
